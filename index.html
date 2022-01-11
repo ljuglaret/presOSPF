@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css">
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css">
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section>
+					<section>
+						<h1>OSPF</h1>
+						<h2>Open Shortest Path First</h2>
+					</section>
+					<section>
+						<h2>Ce que c'est</h2>
+						<ul>
+							<li>
+								L’OSPF est un protocole à état de lien.
+							</li>
+							<li>
+								Tous les routeurs connaissent la topologie complète du réseau.
+							</li>
+							<li>
+								Tous les routeurs transmettents les mises à jour aux autres routeurs.
+							</li>
+							<li>
+								Il permet de définir le meilleur chemin en ayant connaissance de la topologie complète.
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						OSPF - Les types de paquets
+					</section>
+					<section>
+						Au préalable : Le paquet LSA (Link-state advertisements )
+						<p>
+							  La première étape consiste à réunir toutes les informations topologiques. 
+							  <br>
+							  Pour cela, chaque routeur génère ses informations topologiques (« à quels réseaux suis-je raccordé ») 
+							  et ces informations sont diffusées vers les autres noeuds du réseau OSPF. 
+							  Les LSAs sont ces informations topologiques. 				
+						</p>
+						<img width="70%" src="assets/LSA.png">
+					</section>
+					<section>
+						<ul>
+							<li>
+								Paquet Hello - Etablit et maintient les relations d'adjacence avec ses voisins.
+							</li>
+							<li>
+								Paquet DBD (<span style="color: #4400ff">Database</span> Description) - Décrit le contenu de la base de données link-state d'un routeur.
+							</li>
+							<li>
+								Paquet LSR (Link-State <span style="color: #4400ff">Request</span>) - Requête pour obtenir des informations spécifiques sur la base de données link-state d'un routeur voisin.
+							</li>
+							<li>
+								Paquet LSU (Link-State <span style="color: #4400ff">Update</span>) - Utilisé pour répondre aux paquets LSRs et mettre à jour.
+							</li>
+							<li>
+								Paquet LSAck (Link-State <span style="color: #4400ff">Acknowledgment</span>) - Accuse réception des LSA des voisins.
+							</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>Comment</h2>
+						<p>
+							Chaque routeur utilise ensuite  
+							<span style="color: #4400ff">un algorithme du plus court chemin</span>
+							pour déterminer la route la plus rapide vers chacun des réseaux connus dans la LSDB. 
+						</p>
+					</section>
+					<section>
+						<p>Une représentation pratique est celle d'un <span style="color: #4400ff">graphe valué</span> dans lequel chaque noeud représente un routeur.
+							La valeur indiquée sur chaque lien correspond à son coût basée sur la vitesse de la connexion réseau.
+							Plus il est faible, meilleur est le lien.
+						</p>
+						<img src="assets/gr.jpg" width="60%" src="assets/gr.jpg">
+					</section>
+					<section>
+						<div class="split left">
+							<div class="centered"  >
+							  <img  alt=""/>							
+							</div>  
+							<p style="margin-top: -70px;">	<img src="assets/grA.jpg" width="70%" src="assets/gr.jpg">
+							<p  style="margin-top: -50px;" class="fragment" data-fragment-index="2"> <img src="assets/arbreA.jpg" width="70%"></p>
+							</p>
+						  </div>
+						  
+						  <div class="split right">
+							<div class="centered">
+							  <h2>Table de routage pour le noeud A</h2>
+							  <img class="fragment" data-fragment-index="1" src="assets/tabGrA.jpg" alt="">
+							</div>
+						  </div> 
+					</section>
+					<section>
+						<p>On reitère cet algorithme sur chacun des noeuds.</p>
+					</section>
+				</section>
+				<section>
+				
+					<section>
+						<h1>
+							Liens et références
+						</h1>
+						<h4>
+							<p><a href="http://cisco.ofppt.info/ccna2/course/module8/8.1.2.2/8.1.2.2.html">Type de paquets</a></p>
+							<p><a href="https://www.codingame.com/playgrounds/1608/shortest-paths-with-dijkstras-algorithm/dijkstras-algorithm">Algorithme du plus court chemin</a></p>
+						</h4>
+					</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				 slideNumber: 'c/t' ,
+				// Learn about plugins: https://revealjs.com/plugins/
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+			});
+		</script>
+	</body>
+</html>
